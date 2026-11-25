@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Notícias</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0b5fff; --brand-dark:#0841b3; --accent:#ff3b30;
+    --bg:#f4f5f7; --card:#fff; --text:#16181d; --muted:#5d6470; --line:#e3e6ea;
+    --c-politica:#0b5fff; --c-economia:#0a8f5b; --c-esporte:#e0751b; --c-cultura:#8b3fd9; --c-tech:#0097a7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){--bg:#0f1115;--card:#181b21;--text:#eef0f3;--muted:#9aa3ae;--line:#2a2f37}
+  }
+  :root[data-theme="dark"]{--bg:#0f1115;--card:#181b21;--text:#eef0f3;--muted:#9aa3ae;--line:#2a2f37}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+  a{color:inherit;text-decoration:none}
+  a:hover h2,a:hover h3{text-decoration:underline}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+
+  /* Topo */
+  .topbar{background:var(--brand);color:#fff}
+  .topbar .wrap{display:flex;align-items:center;gap:16px;height:64px}
+  .menu-btn{background:none;border:0;color:#fff;font-size:24px;cursor:pointer}
+  .logo{font-family:Merriweather,serif;font-weight:900;font-size:28px;letter-spacing:-1px}
+  .logo span{color:#ffd60a}
+  .search{margin-left:auto;display:flex;background:rgba(255,255,255,.15);border-radius:20px;padding:6px 14px}
+  .search input{background:none;border:0;color:#fff;outline:none;width:160px}
+  .search input::placeholder{color:#dfe7ff}
+  .nav{background:var(--brand-dark);overflow-x:auto}
+  .nav ul{display:flex;gap:24px;list-style:none;white-space:nowrap;padding:10px 0;color:#fff;font-weight:600;font-size:14px}
+  .live{background:var(--accent);color:#fff;font-size:14px;padding:8px 0}
+  .live b{background:#fff;color:var(--accent);padding:2px 8px;border-radius:4px;margin-right:8px;font-size:12px}
+
+  /* Manchetes */
+  main{padding:24px 0}
+  .hero{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:28px}
+  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+  .img{background:linear-gradient(135deg,#7da2ff,#2d4fa8);aspect-ratio:16/9}
+  .body{padding:14px 16px}
+  .tag{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+  .hero-main h2{font-family:Merriweather,serif;font-size:32px;line-height:1.2;margin:6px 0}
+  .hero-side{display:flex;flex-direction:column;gap:20px}
+  h3{font-size:18px;margin:6px 0;line-height:1.3}
+  .meta{color:var(--muted);font-size:13px}
+
+  .section-title{font-size:20px;font-weight:800;border-left:5px solid var(--brand);padding-left:10px;margin:8px 0 16px}
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
+  .feed{display:flex;flex-direction:column;gap:16px}
+  .feed .card{display:grid;grid-template-columns:220px 1fr}
+  .feed .img{aspect-ratio:auto;min-height:130px}
+  aside .card{padding:16px}
+  .rank{list-style:none;counter-reset:r}
+  .rank li{counter-increment:r;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
+  .rank li:last-child{border:0}
+  .rank li::before{content:counter(r);font-family:Merriweather,serif;font-size:26px;color:var(--brand);min-width:24px}
+  .more{display:block;margin:20px auto 0;background:var(--brand);color:#fff;border:0;padding:12px 28px;border-radius:24px;font-weight:700;cursor:pointer}
+
+  footer{background:#111318;color:#aab1bb;padding:32px 0;margin-top:40px;font-size:14px}
+  footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;margin-bottom:20px}
+  footer h4{color:#fff;margin-bottom:8px}
+
+  @media (max-width:860px){
+    .hero,.layout{grid-template-columns:1fr}
+    .hero-main h2{font-size:24px}
+    .feed .card{grid-template-columns:1fr}
+    .feed .img{aspect-ratio:16/9}
+    .search{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar"><div class="wrap">
+    <button class="menu-btn" aria-label="Menu">☰</button>
+    <a href="#" class="logo">Portal<span>.</span>News</a>
+    <form class="search" role="search"><input type="search" placeholder="Buscar notícias"></form>
+  </div></div>
+  <nav class="nav"><div class="wrap"><ul>
+    <li>Brasil</li><li>Política</li><li>Economia</li><li>Mundo</li><li>Esporte</li><li>Tecnologia</li><li>Cultura</li><li>Saúde</li><li>Sua Região</li>
+  </ul></div></nav>
+  <div class="live"><div class="wrap"><b>AO VIVO</b> Acompanhe a cobertura em tempo real do assunto do dia</div></div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <a href="#" class="card hero-main">
+      <div class="img"></div>
+      <div class="body">
+        <span class="tag" style="color:var(--c-politica)">Política</span>
+        <h2>Título da manchete principal do dia vai aqui</h2>
+        <p class="meta">Linha fina com o resumo da notícia em uma ou duas frases. · Há 20 minutos</p>
+      </div>
+    </a>
+    <div class="hero-side">
+      <a href="#" class="card"><div class="img" style="background:linear-gradient(135deg,#5fd3a0,#0a6b45)"></div>
+        <div class="body"><span class="tag" style="color:var(--c-economia)">Economia</span><h3>Segunda manchete em destaque na lateral</h3></div></a>
+      <a href="#" class="card"><div class="img" style="background:linear-gradient(135deg,#ffb36b,#b3530a)"></div>
+        <div class="body"><span class="tag" style="color:var(--c-esporte)">Esporte</span><h3>Terceira manchete com resultado da rodada</h3></div></a>
+    </div>
+  </section>
+
+  <div class="layout">
+    <section>
+      <h2 class="section-title">Últimas notícias</h2>
+      <div class="feed" id="feed"></div>
+      <button class="more" id="more">Veja mais</button>
+    </section>
+    <aside>
+      <div class="card">
+        <h2 class="section-title">Mais lidas</h2>
+        <ol class="rank">
+          <li><a href="#">Notícia mais lida do momento</a></li>
+          <li><a href="#">Segunda notícia mais acessada</a></li>
+          <li><a href="#">Terceira mais lida da semana</a></li>
+          <li><a href="#">Quarta notícia do ranking</a></li>
+          <li><a href="#">Quinta notícia do ranking</a></li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <div class="cols">
+    <div><h4>Editorias</h4><p>Brasil · Política · Economia · Mundo</p></div>
+    <div><h4>Institucional</h4><p>Quem somos · Expediente · Contato</p></div>
+    <div><h4>Siga</h4><p>Instagram · YouTube · WhatsApp</p></div>
+  </div>
+  <p>© 2026 Portal.News — Todos os direitos reservados.</p>
+</div></footer>
+
+<script>
+  // Substitua por dados reais (API/CMS) depois
+  const cats = [["Brasil","var(--c-politica)","#7da2ff,#2d4fa8"],["Economia","var(--c-economia)","#5fd3a0,#0a6b45"],
+    ["Esporte","var(--c-esporte)","#ffb36b,#b3530a"],["Cultura","var(--c-cultura)","#c79bff,#5a1fa3"],["Tecnologia","var(--c-tech)","#6fe3f0,#006b78"]];
+  let n = 0;
+  function load(qtd=6){
+    const feed = document.getElementById('feed');
+    for(let i=0;i<qtd;i++,n++){
+      const [nome,cor,grad] = cats[n % cats.length];
+      feed.insertAdjacentHTML('beforeend', `
+        <a href="#" class="card"><div class="img" style="background:linear-gradient(135deg,${grad})"></div>
+        <div class="body"><span class="tag" style="color:${cor}">${nome}</span>
+        <h3>Título da notícia número ${n+1} aparece aqui</h3>
+        <p class="meta">Resumo curto da matéria para o leitor. · Há ${n*7+5} min</p></div></a>`);
+    }
+  }
+  load();
+  document.getElementById('more').onclick = () => load();
+</script>
+</body>
+</html>
