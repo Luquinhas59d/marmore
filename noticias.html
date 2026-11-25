@@ -9,7 +9,6 @@
   :root{
     --brand:#0b5fff; --brand-dark:#0841b3; --accent:#ff3b30;
     --bg:#f4f5f7; --card:#fff; --text:#16181d; --muted:#5d6470; --line:#e3e6ea;
-    --c-politica:#0b5fff; --c-economia:#0a8f5b; --c-esporte:#e0751b; --c-cultura:#8b3fd9; --c-tech:#0097a7;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){--bg:#0f1115;--card:#181b21;--text:#eef0f3;--muted:#9aa3ae;--line:#2a2f37}
@@ -17,92 +16,161 @@
   :root[data-theme="dark"]{--bg:#0f1115;--card:#181b21;--text:#eef0f3;--muted:#9aa3ae;--line:#2a2f37}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
-  a{color:inherit;text-decoration:none}
-  a:hover h2,a:hover h3{text-decoration:underline}
+  body.lock{overflow:hidden}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+  a:hover h2,a:hover h3,a:hover h4{text-decoration:underline}
   .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+  button{font:inherit;cursor:pointer}
 
   /* Topo */
-  .topbar{background:var(--brand);color:#fff}
-  .topbar .wrap{display:flex;align-items:center;gap:16px;height:64px}
-  .menu-btn{background:none;border:0;color:#fff;font-size:24px;cursor:pointer}
-  .logo{font-family:Merriweather,serif;font-weight:900;font-size:28px;letter-spacing:-1px}
+  .topbar{background:var(--brand);color:#fff;position:sticky;top:0;z-index:20}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:60px}
+  .menu-btn{background:none;border:0;color:#fff;font-size:24px}
+  .logo{font-family:Merriweather,serif;font-weight:900;font-size:26px;letter-spacing:-1px}
   .logo span{color:#ffd60a}
   .search{margin-left:auto;display:flex;background:rgba(255,255,255,.15);border-radius:20px;padding:6px 14px}
   .search input{background:none;border:0;color:#fff;outline:none;width:160px}
   .search input::placeholder{color:#dfe7ff}
   .nav{background:var(--brand-dark);overflow-x:auto}
-  .nav ul{display:flex;gap:24px;list-style:none;white-space:nowrap;padding:10px 0;color:#fff;font-weight:600;font-size:14px}
+  .nav ul{display:flex;gap:22px;list-style:none;white-space:nowrap;padding:10px 0;color:#fff;font-weight:600;font-size:14px}
   .live{background:var(--accent);color:#fff;font-size:14px;padding:8px 0}
   .live b{background:#fff;color:var(--accent);padding:2px 8px;border-radius:4px;margin-right:8px;font-size:12px}
 
-  /* Manchetes */
-  main{padding:24px 0}
-  .hero{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:28px}
-  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--line)}
-  .img{background:linear-gradient(135deg,#7da2ff,#2d4fa8);aspect-ratio:16/9}
-  .body{padding:14px 16px}
-  .tag{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
-  .hero-main h2{font-family:Merriweather,serif;font-size:32px;line-height:1.2;margin:6px 0}
-  .hero-side{display:flex;flex-direction:column;gap:20px}
-  h3{font-size:18px;margin:6px 0;line-height:1.3}
-  .meta{color:var(--muted);font-size:13px}
+  /* Menu lateral */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.2s;z-index:30}
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:85vw;background:var(--card);transform:translateX(-100%);transition:.25s;z-index:31;overflow-y:auto;padding:20px}
+  .menu-open .overlay{opacity:1;pointer-events:auto}
+  .menu-open .drawer{transform:none}
+  .drawer h4{font-size:12px;color:var(--muted);text-transform:uppercase;margin:18px 0 8px}
+  .drawer a{display:block;padding:9px 0;font-weight:600;border-bottom:1px solid var(--line)}
+  .drawer .close{float:right;background:none;border:0;font-size:22px;color:var(--text)}
 
-  .section-title{font-size:20px;font-weight:800;border-left:5px solid var(--brand);padding-left:10px;margin:8px 0 16px}
+  /* Widgets */
+  .widgets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+  .widget{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px}
+  .widget small{color:var(--muted);display:block;font-size:12px;text-transform:uppercase;font-weight:700}
+  .widget strong{font-size:20px}
+
+  /* Cards */
+  main{padding-bottom:24px}
+  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--line);display:block}
+  .img{aspect-ratio:16/9;position:relative}
+  .body{padding:12px 14px}
+  .tag{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+  h3{font-size:17px;margin:4px 0;line-height:1.3}
+  .meta{color:var(--muted);font-size:13px}
+  .section-title{font-size:20px;font-weight:800;border-left:5px solid var(--brand);padding-left:10px;margin:28px 0 14px;display:flex;justify-content:space-between;align-items:center}
+  .section-title a{font-size:13px;color:var(--brand)}
+
+  .hero{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+  .hero-main h2{font-family:Merriweather,serif;font-size:30px;line-height:1.2;margin:6px 0}
+  .hero-side{display:flex;flex-direction:column;gap:18px}
+
   .layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
-  .feed{display:flex;flex-direction:column;gap:16px}
+  .feed{display:flex;flex-direction:column;gap:14px}
   .feed .card{display:grid;grid-template-columns:220px 1fr}
   .feed .img{aspect-ratio:auto;min-height:130px}
-  aside .card{padding:16px}
+  aside .card{padding:16px;margin-bottom:18px}
+  aside .section-title{margin-top:0}
   .rank{list-style:none;counter-reset:r}
-  .rank li{counter-increment:r;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
+  .rank li{counter-increment:r;display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
   .rank li:last-child{border:0}
-  .rank li::before{content:counter(r);font-family:Merriweather,serif;font-size:26px;color:var(--brand);min-width:24px}
-  .more{display:block;margin:20px auto 0;background:var(--brand);color:#fff;border:0;padding:12px 28px;border-radius:24px;font-weight:700;cursor:pointer}
+  .rank li::before{content:counter(r);font-family:Merriweather,serif;font-size:24px;color:var(--brand);min-width:24px}
+  .more{display:block;margin:18px auto 0;background:var(--brand);color:#fff;border:0;padding:12px 28px;border-radius:24px;font-weight:700}
+
+  .ad{background:repeating-linear-gradient(45deg,var(--line) 0 10px,transparent 10px 20px);border:1px dashed var(--muted);color:var(--muted);display:grid;place-items:center;font-size:12px;border-radius:8px;min-height:90px;margin:24px 0}
+  aside .ad{min-height:250px;margin:0 0 18px}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .play::after{content:"▶";position:absolute;inset:0;margin:auto;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;font-size:18px}
+  .dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.75);color:#fff;font-size:12px;padding:1px 6px;border-radius:4px}
+  .videos{background:#111318;color:#fff;padding:4px 0 24px;margin:28px 0;border-radius:8px}
+  .videos .card{background:#1c1f26;border-color:#2a2f37}
+  .videos .section-title{margin-top:20px}
+
+  .newsletter{background:var(--brand);color:#fff;border-radius:8px;padding:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:28px 0}
+  .newsletter h3{font-size:20px;flex:1 1 240px}
+  .newsletter form{display:flex;gap:8px;flex:1 1 300px}
+  .newsletter input{flex:1;border:0;border-radius:20px;padding:10px 14px;min-width:0}
+  .newsletter button{border:0;border-radius:20px;padding:10px 18px;background:#ffd60a;font-weight:800}
+
+  /* Matéria */
+  .article{max-width:760px;margin:24px auto;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:24px}
+  .crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .article h1{font-family:Merriweather,serif;font-size:32px;line-height:1.2;margin:8px 0}
+  .article .lead{font-size:19px;color:var(--muted);margin-bottom:14px}
+  .byline{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:18px;font-size:14px}
+  .share{display:flex;gap:8px}
+  .share button{border:1px solid var(--line);background:none;color:var(--text);border-radius:50%;width:34px;height:34px}
+  .article figure{margin:0 0 18px}
+  .article figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+  .article p.txt{font-size:18px;margin-bottom:16px}
+  .article blockquote{border-left:4px solid var(--brand);padding:6px 16px;font-size:20px;font-style:italic;margin:20px 0}
+  .back{display:inline-block;margin:16px 0 0;color:var(--brand);font-weight:700}
 
   footer{background:#111318;color:#aab1bb;padding:32px 0;margin-top:40px;font-size:14px}
-  footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;margin-bottom:20px}
+  footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;margin-bottom:20px}
   footer h4{color:#fff;margin-bottom:8px}
+  footer a{display:block;padding:3px 0}
+
+  [hidden]{display:none!important}
 
   @media (max-width:860px){
     .hero,.layout{grid-template-columns:1fr}
-    .hero-main h2{font-size:24px}
-    .feed .card{grid-template-columns:1fr}
-    .feed .img{aspect-ratio:16/9}
+    .hero-main h2{font-size:23px}
+    .feed .card{grid-template-columns:120px 1fr}
+    .feed .img{min-height:100%}
+    .feed h3{font-size:15px}
+    .feed .meta{display:none}
+    .grid3{grid-template-columns:1fr}
+    .grid4{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+    .grid4 .card{flex:0 0 75%;scroll-snap-align:start}
+    .widgets{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    .widget{padding:10px}
+    .widget strong{font-size:16px}
     .search{display:none}
+    .article{padding:16px;border-radius:0;margin:0 -16px}
+    .article h1{font-size:25px}
+    .article p.txt{font-size:17px}
   }
 </style>
 </head>
 <body>
 
+<div class="overlay" id="overlay"></div>
+<nav class="drawer" id="drawer" aria-label="Menu">
+  <button class="close" id="closeMenu" aria-label="Fechar">✕</button>
+  <div class="logo" style="color:var(--brand)">Portal<span>.</span>News</div>
+  <h4>Editorias</h4>
+  <div id="drawerCats"></div>
+  <h4>Regiões</h4>
+  <a>Norte</a><a>Nordeste</a><a>Centro-Oeste</a><a>Sudeste</a><a>Sul</a>
+  <h4>Conteúdos</h4>
+  <a>Vídeos</a><a>Podcasts</a><a>Newsletter</a>
+</nav>
+
 <header>
   <div class="topbar"><div class="wrap">
-    <button class="menu-btn" aria-label="Menu">☰</button>
-    <a href="#" class="logo">Portal<span>.</span>News</a>
-    <form class="search" role="search"><input type="search" placeholder="Buscar notícias"></form>
+    <button class="menu-btn" id="openMenu" aria-label="Menu">☰</button>
+    <a class="logo" data-go="home">Portal<span>.</span>News</a>
+    <form class="search" role="search" onsubmit="return false"><input type="search" placeholder="Buscar notícias"></form>
   </div></div>
-  <nav class="nav"><div class="wrap"><ul>
-    <li>Brasil</li><li>Política</li><li>Economia</li><li>Mundo</li><li>Esporte</li><li>Tecnologia</li><li>Cultura</li><li>Saúde</li><li>Sua Região</li>
-  </ul></div></nav>
+  <nav class="nav"><div class="wrap"><ul id="navCats"></ul></div></nav>
   <div class="live"><div class="wrap"><b>AO VIVO</b> Acompanhe a cobertura em tempo real do assunto do dia</div></div>
 </header>
 
-<main class="wrap">
-  <section class="hero">
-    <a href="#" class="card hero-main">
-      <div class="img"></div>
-      <div class="body">
-        <span class="tag" style="color:var(--c-politica)">Política</span>
-        <h2>Título da manchete principal do dia vai aqui</h2>
-        <p class="meta">Linha fina com o resumo da notícia em uma ou duas frases. · Há 20 minutos</p>
-      </div>
-    </a>
-    <div class="hero-side">
-      <a href="#" class="card"><div class="img" style="background:linear-gradient(135deg,#5fd3a0,#0a6b45)"></div>
-        <div class="body"><span class="tag" style="color:var(--c-economia)">Economia</span><h3>Segunda manchete em destaque na lateral</h3></div></a>
-      <a href="#" class="card"><div class="img" style="background:linear-gradient(135deg,#ffb36b,#b3530a)"></div>
-        <div class="body"><span class="tag" style="color:var(--c-esporte)">Esporte</span><h3>Terceira manchete com resultado da rodada</h3></div></a>
-    </div>
-  </section>
+<!-- ===== PÁGINA INICIAL ===== -->
+<main class="wrap" id="home">
+  <div class="widgets">
+    <div class="widget"><small>Tempo</small><strong>☀️ 27°</strong><br><span class="meta">Sua cidade</span></div>
+    <div class="widget"><small>Dólar</small><strong>R$ 5,40</strong><br><span class="meta" style="color:#0a8f5b">▲ 0,3%</span></div>
+    <div class="widget"><small>Placar</small><strong>2 × 1</strong><br><span class="meta">Time A × Time B</span></div>
+  </div>
+
+  <section class="hero" id="hero"></section>
+
+  <div class="ad">PUBLICIDADE 728×90</div>
 
   <div class="layout">
     <section>
@@ -113,45 +181,141 @@
     <aside>
       <div class="card">
         <h2 class="section-title">Mais lidas</h2>
-        <ol class="rank">
-          <li><a href="#">Notícia mais lida do momento</a></li>
-          <li><a href="#">Segunda notícia mais acessada</a></li>
-          <li><a href="#">Terceira mais lida da semana</a></li>
-          <li><a href="#">Quarta notícia do ranking</a></li>
-          <li><a href="#">Quinta notícia do ranking</a></li>
-        </ol>
+        <ol class="rank" id="rank"></ol>
       </div>
+      <div class="ad">PUBLICIDADE 300×250</div>
     </aside>
   </div>
+
+  <section class="videos"><div class="wrap">
+    <h2 class="section-title" style="border-color:#ffd60a">Vídeos <a style="color:#ffd60a">ver todos ›</a></h2>
+    <div class="grid4" id="videos"></div>
+  </div></section>
+
+  <div id="blocks"></div>
+
+  <section class="newsletter">
+    <h3>📬 Receba as principais notícias do dia no seu e-mail</h3>
+    <form onsubmit="this.innerHTML='<b>Inscrição feita! ✅</b>';return false">
+      <input type="email" placeholder="Seu e-mail" required><button>Assinar</button>
+    </form>
+  </section>
+</main>
+
+<!-- ===== PÁGINA DE EDITORIA ===== -->
+<main class="wrap" id="category" hidden>
+  <h2 class="section-title" id="catTitle" style="font-size:28px"></h2>
+  <div class="layout">
+    <div class="feed" id="catFeed"></div>
+    <aside><div class="ad">PUBLICIDADE 300×250</div></aside>
+  </div>
+</main>
+
+<!-- ===== PÁGINA DE MATÉRIA ===== -->
+<main class="wrap" id="article" hidden>
+  <article class="article">
+    <div class="crumbs" id="aCrumbs"></div>
+    <span class="tag" id="aTag"></span>
+    <h1 id="aTitle"></h1>
+    <p class="lead">Linha fina: resumo da notícia em uma ou duas frases para contextualizar o leitor.</p>
+    <div class="byline">
+      <div><b>Por Nome do Repórter</b><br><span class="meta">25/11/2026 14h32 · Atualizado há 10 minutos</span></div>
+      <div class="share"><button aria-label="WhatsApp">💬</button><button aria-label="Facebook">f</button><button aria-label="X">𝕏</button><button aria-label="Copiar link">🔗</button></div>
+    </div>
+    <figure><div class="img" id="aImg" style="border-radius:6px"></div><figcaption>Legenda da foto — Foto: Nome do fotógrafo</figcaption></figure>
+    <p class="txt">Primeiro parágrafo da matéria. Aqui vai o lide, respondendo o quê, quem, quando, onde e por quê de forma direta.</p>
+    <p class="txt">Segundo parágrafo com o desenvolvimento da notícia, dados, contexto e informações adicionais.</p>
+    <blockquote>“Uma citação de destaque de uma das fontes ouvidas pela reportagem.”</blockquote>
+    <p class="txt">Terceiro parágrafo com repercussão e próximos passos do assunto.</p>
+    <div class="ad">PUBLICIDADE</div>
+    <p class="txt">Parágrafo final com informações complementares.</p>
+    <h2 class="section-title">Leia também</h2>
+    <div class="grid3" id="related"></div>
+    <a class="back" data-go="home">‹ Voltar para a página inicial</a>
+  </article>
 </main>
 
 <footer><div class="wrap">
   <div class="cols">
-    <div><h4>Editorias</h4><p>Brasil · Política · Economia · Mundo</p></div>
-    <div><h4>Institucional</h4><p>Quem somos · Expediente · Contato</p></div>
-    <div><h4>Siga</h4><p>Instagram · YouTube · WhatsApp</p></div>
+    <div><h4>Editorias</h4><div id="footCats"></div></div>
+    <div><h4>Institucional</h4><a>Quem somos</a><a>Expediente</a><a>Princípios editoriais</a><a>Fale conosco</a></div>
+    <div><h4>Serviços</h4><a>Newsletter</a><a>Podcasts</a><a>Anuncie</a></div>
+    <div><h4>Siga</h4><a>Instagram</a><a>YouTube</a><a>WhatsApp</a></div>
   </div>
-  <p>© 2026 Portal.News — Todos os direitos reservados.</p>
+  <p>© 2026 Portal.News — Todos os direitos reservados. · Política de privacidade · Termos de uso</p>
 </div></footer>
 
 <script>
-  // Substitua por dados reais (API/CMS) depois
-  const cats = [["Brasil","var(--c-politica)","#7da2ff,#2d4fa8"],["Economia","var(--c-economia)","#5fd3a0,#0a6b45"],
-    ["Esporte","var(--c-esporte)","#ffb36b,#b3530a"],["Cultura","var(--c-cultura)","#c79bff,#5a1fa3"],["Tecnologia","var(--c-tech)","#6fe3f0,#006b78"]];
-  let n = 0;
-  function load(qtd=6){
-    const feed = document.getElementById('feed');
-    for(let i=0;i<qtd;i++,n++){
-      const [nome,cor,grad] = cats[n % cats.length];
-      feed.insertAdjacentHTML('beforeend', `
-        <a href="#" class="card"><div class="img" style="background:linear-gradient(135deg,${grad})"></div>
-        <div class="body"><span class="tag" style="color:${cor}">${nome}</span>
-        <h3>Título da notícia número ${n+1} aparece aqui</h3>
-        <p class="meta">Resumo curto da matéria para o leitor. · Há ${n*7+5} min</p></div></a>`);
-    }
+  // ===== Dados de exemplo — troque por uma API/CMS depois =====
+  const CATS = {
+    "Brasil":["#0b5fff","#7da2ff,#2d4fa8"], "Política":["#c62828","#ff8a80,#8e1414"],
+    "Economia":["#0a8f5b","#5fd3a0,#0a6b45"], "Mundo":["#455a64","#b0bec5,#37474f"],
+    "Esporte":["#e0751b","#ffb36b,#b3530a"], "Tecnologia":["#0097a7","#6fe3f0,#006b78"],
+    "Cultura":["#8b3fd9","#c79bff,#5a1fa3"], "Saúde":["#d81b60","#ff9ec4,#9c1145"]
+  };
+  const names = Object.keys(CATS);
+  let id = 0;
+  const news = (cat, i) => ({id:id++, cat, title:`Título da notícia ${i+1} de ${cat} aparece aqui`, ago:`Há ${(id*7)%59+2} min`});
+  const color = c => CATS[c][0], grad = c => `background:linear-gradient(135deg,${CATS[c][1]})`;
+
+  const card = (n, cls='') => `<a class="card" data-id="${n.id}" data-cat="${n.cat}" data-title="${n.title}">
+    <div class="img ${cls}" style="${grad(n.cat)}">${cls?'<span class="dur">2:35</span>':''}</div>
+    <div class="body"><span class="tag" style="color:${color(n.cat)}">${n.cat}</span><h3>${n.title}</h3><p class="meta">${n.ago}</p></div></a>`;
+  const $ = s => document.getElementById(s);
+
+  // Menus
+  const catLink = c => `<a data-cat-page="${c}">${c}</a>`;
+  $('navCats').innerHTML = names.map(c=>`<li>${catLink(c)}</li>`).join('') + '<li><a>Sua Região</a></li>';
+  $('drawerCats').innerHTML = $('footCats').innerHTML = names.map(catLink).join('');
+
+  // Destaques
+  const h = [news("Política",0), news("Economia",0), news("Esporte",0)];
+  $('hero').innerHTML = `<a class="card hero-main" data-id="${h[0].id}" data-cat="${h[0].cat}" data-title="${h[0].title}">
+      <div class="img" style="${grad(h[0].cat)}"></div>
+      <div class="body"><span class="tag" style="color:${color(h[0].cat)}">${h[0].cat}</span>
+      <h2>Título da manchete principal do dia vai aqui</h2>
+      <p class="meta">Linha fina com o resumo da notícia. · ${h[0].ago}</p></div></a>
+    <div class="hero-side">${card(h[1])}${card(h[2])}</div>`;
+
+  // Feed
+  let k = 0;
+  function load(q=6){ for(let i=0;i<q;i++,k++) $('feed').insertAdjacentHTML('beforeend', card(news(names[k%names.length], k))); }
+  load(); $('more').onclick = () => load();
+
+  $('rank').innerHTML = [1,2,3,4,5].map(i=>`<li><a data-cat="Brasil" data-title="Notícia mais lida número ${i}">Notícia mais lida número ${i}</a></li>`).join('');
+  $('videos').innerHTML = names.slice(0,4).map((c,i)=>card(news(c,i),'play')).join('');
+
+  // Blocos por editoria
+  $('blocks').innerHTML = ["Brasil","Economia","Esporte","Tecnologia"].map(c=>`
+    <h2 class="section-title" style="border-color:${color(c)}">${c} <a data-cat-page="${c}">ver mais ›</a></h2>
+    <div class="grid3">${[0,1,2].map(i=>card(news(c,i))).join('')}</div>`).join('');
+
+  // ===== Navegação entre páginas =====
+  const pages = ['home','category','article'];
+  function show(p){ pages.forEach(x=>$(x).hidden = x!==p); scrollTo(0,0); closeMenu(); }
+  function openArticle(cat, title){
+    $('aCrumbs').textContent = `Início › ${cat}`;
+    $('aTag').textContent = cat; $('aTag').style.color = color(cat);
+    $('aTitle').textContent = title; $('aImg').style.cssText += grad(cat);
+    $('related').innerHTML = [0,1,2].map(i=>card(news(cat,i+3))).join('');
+    show('article');
   }
-  load();
-  document.getElementById('more').onclick = () => load();
+  function openCategory(cat){
+    $('catTitle').textContent = cat; $('catTitle').style.borderColor = color(cat);
+    $('catFeed').innerHTML = Array.from({length:8},(_,i)=>card(news(cat,i))).join('');
+    show('category');
+  }
+  document.addEventListener('click', e=>{
+    const a = e.target.closest('a'); if(!a) return;
+    if(a.dataset.go==='home') show('home');
+    else if(a.dataset.catPage) openCategory(a.dataset.catPage);
+    else if(a.dataset.title) openArticle(a.dataset.cat, a.dataset.title);
+  });
+
+  // Menu lateral
+  const openMenu = () => { document.body.classList.add('menu-open','lock'); };
+  const closeMenu = () => { document.body.classList.remove('menu-open','lock'); };
+  $('openMenu').onclick = openMenu; $('closeMenu').onclick = closeMenu; $('overlay').onclick = closeMenu;
 </script>
 </body>
 </html>
